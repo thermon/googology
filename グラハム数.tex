@@ -1,0 +1,515 @@
+\documentclass[a4j,fleqn,10pt]{jarticle}
+\usepackage{comment}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{mathdots}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{multirow}
+\usepackage{bxpapersize}% 読み込みだけでOK
+%\setlength{\hoffset}{-1in}
+%\setlength{\voffset}{-1in}
+%\setlength{\oddsidemargin}{10mm}
+%\setlength{\topmargin}{20mm}
+%\setlength{\textwidth}{190mm} % 210mm - 10mm - 10mm
+%\setlength{\textheight}{257mm} % 297mm - 20mm - 20mm
+%\addtolength{\topmargin}{-\headheight}
+%\addtolength{\topmargin}{-\headsep}
+%\addtolength{\textheight}{-\footskip}
+\pagestyle{fancy}
+\lhead{グラハム数の簡単な？解説 by @Hari1000Bom}
+\rhead{\today}
+\begin{document}
+\title{グラハム数}
+\section{グラハム数の定義}
+\begin{eqnarray}
+G(x)&=&3 \uparrow^ {x} 3 \\
+グラハム数&=&G^{64}(4)=\underbrace {G(G( \cdots G(G(4)) \cdots ))} _{64回入れ子}=
+\left .
+\begin{array} {c}
+%
+3 \underbrace {\uparrow \uparrow \uparrow \uparrow \uparrow \cdots \uparrow  \uparrow  \uparrow  \uparrow \uparrow }3 \\
+3 \underbrace {\uparrow \uparrow \uparrow \uparrow \cdots \uparrow  \uparrow  \uparrow \uparrow }3 \\
+\vdots \\
+3 \underbrace {\uparrow \uparrow \uparrow \cdots \uparrow  \uparrow \uparrow }3 \\
+3 \underbrace {\uparrow \uparrow \cdots \uparrow \uparrow }3 \\
+3 \uparrow \uparrow \uparrow \uparrow 3 
+\end{array}
+\right \}
+64階層
+\end{eqnarray}
+1段階目は3と3の間に$\uparrow$が4つ。\\
+2段階目は3と3の間に$\uparrow$が1段階目の数、つまり$3 \uparrow \uparrow \uparrow \uparrow 3$ 個、挟み込まれます。\\
+3段階目は3と3の間に$\uparrow$が2段階目の数だけ挟み込まれます。\\
+このように前段階の数だけ、3と3の間に$\uparrow$を挟み込む操作を繰り返します。\\
+これを64段階繰り返した数がグラハム数です。
+\section{クヌースの矢印表記}
+加算の繰り返しが乗算になり、乗算の繰り返しがべき乗になるように、
+矢印表記は、べき乗の繰り返し、その繰り返し、更にその繰り返しといった、べき乗の上位演算を表すための表記法の1つです。\\
+べき乗以上の演算は右から計算していきます。\\
+{\small
+\begin{tabular} [c] {|c|c||c|l|l|}
+\hline
+演算レベル
+&演算名&表記
+&\multicolumn{1}{|c|}{演算の定義}
+&演算内容
+\tabularnewline
+\hline \hline
+1&加算& $m + n $ & $=\underbrace {(m+1)} _{mの次の数} +(n-1)$&
+$=m \underbrace {+1 +1 \dotsb +1} _{+1をn回繰り返す} $ 
+\tabularnewline \hline
+2&乗算& $m \times n$& $=m+ (m \times (n-1))$ & 
+ $=\underbrace {m+ \dotsb +m+ m} _{mがn個} $
+
+\tabularnewline \hline
+3&べき乗& 
+$ \left .
+\begin{array} {c} 
+m^n \\ 
+m \uparrow n
+\end{array} 
+\right .$& 
+$=m\times (m \uparrow (n-1))$ & 
+$=\underbrace {m \times  \dotsb \times m \times m} _{mがn個}  $
+\tabularnewline \hline
+4&テトレーション& 
+$\left .
+\begin{array} {c} 
+m \uparrow \uparrow n  \\ 
+m \uparrow^{2} n  \\
+^nm
+\end{array}
+\right . $& 
+$=m\uparrow (m \uparrow \uparrow (n-1))$ &
+$=\underbrace {m \uparrow  \dotsb \uparrow m \uparrow m} _{mがn個} $
+\tabularnewline \hline
+5&ペンテーション& 
+$ \left .
+\begin{array} {c}
+m \uparrow \uparrow \uparrow n \\
+m \uparrow^{3} n  
+\end{array}
+\right . $& 
+$=m\uparrow \uparrow (m \uparrow ^{3} (n-1))$ & 
+$=\underbrace {m \uparrow \uparrow  \dotsb \uparrow \uparrow m \uparrow \uparrow m} _{mがn個} $
+\tabularnewline \hline
+6 &ヘキセーション& 
+$$
+$ \left .
+\begin{array}{c}
+m \uparrow \uparrow \uparrow \uparrow n \\
+m \uparrow^{4} n
+\end{array}
+\right . $
+&
+$=m\uparrow ^{3} (m \uparrow ^{4} (n-1))   $
+&
+$=\underbrace {
+m \uparrow ^{3}
+\dotsb
+\uparrow ^{3} m \uparrow ^{3} m} 
+_{mがn個} $ 
+\tabularnewline \hline
+$\vdots $ &$\vdots $&$\vdots $&\multicolumn{1}{|c|}{$\vdots$}&\multicolumn{1}{|c|}{$\vdots$}
+\tabularnewline \hline
+\end{tabular}
+}
+\section{グラハム数の1段目を計算してみる}
+%3^^4
+まずは$3 \uparrow \uparrow 4$から。
+\begin{eqnarray}
+3 \uparrow \uparrow \textcolor{green}{\bf{4}}&=& \underbrace {3 \uparrow 3 \uparrow 3 \uparrow 3} _{\bf{3が\textcolor{green}{4}個}}= \underbrace {3 ^{3 ^ {3 ^3}}} _{\bf{\textcolor{green}{4}段 }} \\
+ &=& 3 ^ {3 ^ {27}} \\
+ &=& 3 ^ {7\ 625\ 597\ 484\ 987} \\
+ &=& 10^{\log_{10}(3 ^ {7\ 625\ 597\ 484\ 987})} \\
+&=& 10^{ 7\ 625\ 597\ 484\ 987 \times \log_{10}(3)} \\
+&\fallingdotseq& 10 ^ {7\ 625\ 597\ 484\ 987 \times 0.477} \\
+ &\fallingdotseq & 10 ^{ 3\ 638\ 334\ 640\ 024.10} \\
+&\fallingdotseq&  10 ^{ 10^{12.56}} \\
+&\fallingdotseq&  10 ^{ 10^{10^{1.10}}}
+\end{eqnarray}
+10の指数、つまり肩に乗っている数が桁数になるので、$3 \uparrow \uparrow 4$はおよそ3兆6千4百億桁の数という計算結果が出ました。\\
+「観測可能な宇宙に含まれる全ての原子の数」である$10^{80}$を超えてますが、「観測可能な宇宙が取りうる全ての状態の数」と言われるプロマキシマ（$10^{10^{245}}$）よりは小さいです。
+\\
+\\
+%3^^5
+次は$3 \uparrow \uparrow 5$。
+\begin{eqnarray}
+3 \uparrow \uparrow \textcolor{green}{\bf{5}}&=& \underbrace {3 \uparrow 3 \uparrow 3 \uparrow 3 \uparrow 3}_{\bf{3が\textcolor{green}{5}個}}
+= \underbrace {3^{3 ^{3 ^ {3 ^3}}}} _{\bf{\textcolor{green}{5}段 }} \\
+ &=& 3 ^{ 3 \uparrow \uparrow 4} \\
+ &=& 3 ^ {3 ^ {7\ 625\ 597\ 484\ 987}} \\
+&\fallingdotseq& 3 ^ {10 ^{ 3\ 638\ 334\ 640\ 024.10}} \\
+&=&  10 ^{
+{\log_{10}
+(3^{10 ^{ 3\ 638\ 334\ 640\ 024.10}})
+}} 
+\\
+&=&  10 ^{
+10 ^{  3\ 638\ 334\ 640\ 024.10} \times \log_{10}(3)
+} \\
+&=&  10 ^{
+10 ^{  3\ 638\ 334\ 640\ 024.10} \times 10^{\log_{10}(\log_{10}(3))}
+} \\
+&\fallingdotseq&  10 ^{
+10 ^{  3\ 638\ 334\ 640\ 024.10} \times 10^{\log_{10}(0.477)}
+} \\
+&\fallingdotseq&  10 ^ {10^{  3\ 638\ 334\ 640\ 024.10} \times 10^{-0.32}} \\
+&= & 10 ^ {10^{ 3\ 638\ 334\ 640\ 024.10 \  -0.32}} \\
+ &= & 10 ^{10^{ 3\ 638\ 334\ 640\ 023.78 }}\\
+ &\fallingdotseq & 10 ^{10^{10^{12.56}}}\\
+&\fallingdotseq& 10^{10^{10^{10^{1.10}}}}
+\end{eqnarray}
+はい、$3 \uparrow \uparrow 5$は、あまりに指数がでか過ぎて、（10の約3兆6千4百億乗）桁という数になります。\\
+$3 \uparrow \uparrow 6$で、「宇宙論で使われた最大の数」である$10^{10^{10^{10^{10^{1.1}}}}}$と同じくらいになります。
+\\
+\\
+% 3^^^3
+今度はトリトリ(tritri)、$3 \uparrow \uparrow \uparrow 3$を計算してみます。
+\begin{eqnarray}
+{\rm tritri}&=& 3 \uparrow \uparrow \uparrow \textcolor{green}{\bf{3}}
+%= 3 \uparrow \uparrow \uparrow \uparrow  \textcolor{cyan}{\bf{2}} 
+\\
+&=& \underbrace {3 \uparrow \uparrow 3 \uparrow \uparrow 3} _{\bf{3が\textcolor{green}{3}個}} \\
+ &=& 3 \uparrow \uparrow (3 \uparrow 3 \uparrow 3)
+\begin{comment}
+ =
+\begin{array} {c}
+\underbrace {
+\left .
+\begin{array} {cll}
+\underbrace {3 \uparrow 3 \uparrow \cdots \uparrow 3 \uparrow 3}&(=3 \uparrow \uparrow 3 \uparrow \uparrow 3)
+&(=3 \uparrow \uparrow \uparrow \textcolor{green}{\bf{3}}) \\
+\underbrace {3 \uparrow 3 \uparrow 3}&(=3 \uparrow \uparrow 3)
+&(=3 \uparrow \uparrow \uparrow 2) \\
+3&(=3 \uparrow \uparrow 1)&(=3 \uparrow \uparrow \uparrow 1)
+\end{array}
+\right \} \textcolor{green}{\bf{3段}}
+} \\
+\textcolor{cyan}{\bf{2列}}
+\end{array}
+\end{comment}
+\\
+ &=&\underbrace {
+\left . \begin {array}{c} 3 ^ {3 ^ {\iddots ^{ 3 ^3}}} \end{array} \right \}  \left . 3^{3^3} 段\right \} 3段
+} _{\bf{\textcolor{green}{3}列}}
+\\
+ &=& \left . \begin {array}{c} 3 ^ {3 ^ {\iddots ^{ 3 ^3}}} \end{array} \right \}  3 ^{27}段 \\
+ &=& \left . \begin {array}{c} 3 ^ {3 ^ {\iddots ^{ 3 ^3}}} \end{array} \right \}   7{,}625{,}597{,}484{,}987段 \\
+\end{eqnarray}
+7兆6千億段を超える、3の指数タワーができてしまいました。\\
+「宇宙論で使われた最大の数」が10の指数タワー5段なので、巨大な数の枕詞である「天文学的」の範疇を凄まじく超えてしまっています。\\
+ここまで指数タワーが積み上がると、普通の感覚では数そのものと、その桁数がほぼ同じくらいになります。\\
+\\
+最後にグラハム数の1段階目(grahalと呼ばれています)を計算してみます。
+\begin{eqnarray}
+{\rm grahal} 
+&=& 3 \uparrow \uparrow \uparrow \uparrow \textcolor{cyan}{\bf{3}} 
+%=3 \uparrow \uparrow \uparrow \uparrow \uparrow \bf {2}
+\\
+&=& \underbrace {3 \uparrow \uparrow \uparrow 3 \uparrow \uparrow \uparrow 3}_{３が\textcolor{cyan}{\bf{3}}個} \\
+&=& 3 \uparrow \uparrow \uparrow {\rm tritri} \\
+&=&
+\begin{array}{c}
+3 \uparrow \uparrow \uparrow \left (
+\left .
+\begin{array}{c}
+3 ^ {3 ^ {\iddots ^{ 3 ^3}}} 
+\end{array}
+\right \} 
+\left . 
+3^{3^3}段 \right \} 3段
+\right )
+\end{array}
+\\
+&=& 
+\underbrace{
+\left .
+\left .
+\left .
+\left .
+\left .
+3 ^ {3 ^ {\iddots ^{ 3 ^3}}} 
+\right \}
+3 ^ {3 ^ {\iddots ^{ 3 ^3}}} 
+\right \}
+\cdots
+\right \}
+3 ^ {3 ^ {\iddots ^{ 3 ^3}}}
+\right \}
+3^{3^3}
+\right \}
+3
+} _{
+\underbrace{3 ^ {3 ^ {\iddots ^{ 3 ^3}}}} _{\underbrace{3^{3^3}}_{3段}段}階層
+}
+\end{eqnarray}
+\newpage
+\section{おまけ：テトレーションを加算のみで表現してみる}
+\begin{eqnarray}
+% 4*3
+3 \times 4&=&
+\left .
+\begin{array} {c}
+\underbrace {3+3+3+3} \\
+4
+\end{array}
+\right .
+\\
+% 3^4
+3 ^ 4&=&
+\left .
+\begin{array} {c}
+\underbrace {3 \times 3 \times 3 \times 3} \\
+4
+\end{array}
+\right .
+=
+\left .
+\begin{array} {cll}
+\underbrace {3+3+3+ \dotsb +3+3+3}&(=3 \times 3^3)&(=3^4=81)\\
+\underbrace {3+3+ \dotsb +3+3}&(=3 \times 3^2)&(=3^3=27)\\
+\underbrace {3+3+3} &(=3 \times 3)&(=3^2=9)\\
+3&&(=3^1)
+\end{array}
+\right \} 
+4
+\end{eqnarray}
+\\
+% 3^^3
+\footnotesize{
+\begin{eqnarray}
+3 \uparrow \uparrow 3&=&
+\left .
+\begin{array} {c}
+\underbrace {
+3 \uparrow 3 \uparrow 3
+}\\
+3 
+\end{array}
+\right . 
+=
+\left .
+\begin{array} {c}
+\underbrace {
+3^{3^3}
+}\\
+3 
+\end{array}
+\right . 
+%
+=
+\left . 
+\begin{array} {c}
+\underbrace {3 \times 3 \times \dotsb \times 3 \times 3 } \\
+\underbrace {3 \times 3 \times 3 } \\
+3
+\end{array}
+\right \} 3
+\\
+%
+\nonumber \\
+&=&
+\begin{array} {c}
+\underbrace {
+\left .
+\begin{array} {cr}
+\underbrace {3+3+3+3+ \dotsb +3+3+3+3}&(=3^{27}=7{,}625{,}597{,}484{,}987)\\
+\underbrace {3+3+3+ \dotsb +3+3+3}&(=3^{26}=2{,}541{,}865{,}828{,}329)\\
+\vdots \\
+\underbrace {3+3+ \dotsb +3+3}&(=3^3=27)\\
+\underbrace {3+3+3} &(=3^2=9)\\
+3&(=3^1)
+\end{array}
+\right \}
+\left .
+\begin{array} {cr}
+\underbrace {3+3+ \dotsb +3+3}&(=3^3=27)\\
+\underbrace {3+3+3} &(=3^2=9)\\
+3&(=3^1)
+\end{array}
+\right \} 
+3
+} \\
+3
+\end{array}
+\end{eqnarray}
+}
+% 3^^4
+\begin{eqnarray}
+3 \uparrow \uparrow 4&=&
+\left .
+\begin{array} {c}
+\underbrace {
+3 \uparrow 3 \uparrow 3 \uparrow 3
+}\\
+4
+\end{array}
+\right . 
+=
+\left .
+\begin{array} {c}
+\underbrace {
+3^{3^{3^3}}
+}\\
+4
+\end{array}
+\right . 
+%
+=
+\left . 
+\begin{array} {c}
+\underbrace {3 \times 3 \times 3 \times \dotsb \times 3 \times 3 \times 3 } \\
+\underbrace {3 \times 3 \times \dotsb \times 3 \times 3 } \\
+\underbrace {3 \times 3 \times 3 } \\
+3
+\end{array}
+\right \} 4
+\\
+\nonumber \\
+%
+&=&
+\left .
+\begin{array} {c}
+\underbrace {
+\left .
+\begin{array} {c}
+\underbrace {3+3+3+3+ \dotsb +3+3+3+3}
+\\
+\underbrace {3+3+3+ \dotsb +3+3+3}\\
+\vdots \\
+\underbrace {3+3+ \dotsb +3+3}\\
+\underbrace {3+3+3} \\
+3
+\end{array}
+\right \}
+\left .
+\begin{array} {c}
+\underbrace {3+3+3+3+ \dotsb +3+3+3+3}
+\\
+\underbrace {3+3+3+ \dotsb +3+3+3}\\
+\vdots \\
+\underbrace {3+3+ \dotsb +3+3}\\
+\underbrace {3+3+3} \\
+3
+\end{array}
+\right \}
+\left .
+\begin{array} {c}
+\underbrace {3+3+ \dotsb +3+3}
+\\
+\underbrace {3+3+3}\\
+3
+\end{array}
+\right \} 
+3
+} \\
+4
+\end{array}
+\right .
+\end{eqnarray}
+% 3^^^3
+\scriptsize {
+\begin{eqnarray}
+3 \uparrow \uparrow \uparrow 3&=&
+\left .
+\begin{array} {c}
+\underbrace {
+3 \uparrow \uparrow 3 \uparrow \uparrow 3
+}\\
+3
+\end{array}
+\right . 
+%
+=
+\left .
+\begin{array} {c}
+\underbrace {
+3 \uparrow 3 \uparrow \cdots \uparrow 3 \uparrow 3
+} \\
+\underbrace {
+3 \uparrow 3 \uparrow 3
+} \\
+3
+\end{array}
+\right .
+=
+\left . 
+\left .
+\begin{array} {c}
+\underbrace {3 \times 3 \times 3 \times \dotsb \times 3 \times 3 \times 3 } \\
+\vdots \\
+\underbrace {3 \times 3 \times \dotsb \times 3 \times 3 } \\
+\underbrace {3 \times 3 \times 3 } \\
+3
+\end{array}
+\right \}
+\begin{array} {c}
+\underbrace {3 \times 3 \times \dotsb \times 3 \times 3 } \\
+\underbrace {3 \times 3 \times 3 } \\
+3
+\end{array}
+\right \} 3
+\\
+\nonumber \\
+%
+&=&
+\left .
+\begin{array} {rc}
+%3 \uparrow \uparrow 3 \uparrow \uparrow 3= 3 \uparrow \uparrow 7625597484987 =
+&
+\underbrace {
+\left .
+\left .
+\begin{array} {c}
+\underbrace {3+3+3+3+ \dotsb +3+3+3+3} \\
+\underbrace {3+3+3+ \dotsb +3+3+3}\\
+\vdots \\
+\underbrace {3+3+ \dotsb +3+3}\\
+\underbrace {3+3+3} \\
+3
+\end{array}
+\right \}
+\ \cdots \ 
+\right \}
+\left .
+\begin{array} {c}
+\underbrace {3+3+ \dotsb +3+3} \\
+\underbrace {3+3+3}\\
+3
+\end{array}
+\right \} 
+3
+} \\
+%3 \uparrow \uparrow 3 =3^{3^3}=3^{27}=7625597484987 =
+&
+\underbrace {
+\left .
+\begin{array} {c}
+\underbrace {3+3+3+3+ \dotsb +3+3+3+3}
+\\
+\underbrace {3+3+3+ \dotsb +3+3+3}\\
+\vdots \\
+\underbrace {3+3+ \dotsb +3+3}\\
+\underbrace {3+3+3} \\
+3
+\end{array}
+\right \}
+\left .
+\begin{array} {c}
+\underbrace {3+3+ \dotsb +3+3} \\
+\underbrace {3+3+3}\\
+3
+\end{array}
+\right \} 
+3
+} \\
+&3
+\end{array}
+\right .
+\end{eqnarray}
+}
+\end{document}
+
